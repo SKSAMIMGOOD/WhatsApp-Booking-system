@@ -1,0 +1,1519 @@
+/* ==========================================================================
+   SyncBook Premium Stylesheet - Glassmorphism UI & Responsive Layout
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Theme Variables & Reset
+   -------------------------------------------------------------------------- */
+:root {
+    /* Font Families */
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', sans-serif;
+
+    /* Transition Speeds */
+    --transition-fast: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Dark Mode Tokens (Default) */
+    --bg-app: #070412;
+    --bg-gradient: radial-gradient(circle at 10% 10%, #150e2d 0%, #06030b 100%);
+    
+    --glass-bg: rgba(18, 14, 38, 0.55);
+    --glass-bg-hover: rgba(26, 21, 54, 0.65);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    --glass-border-focus: rgba(139, 92, 246, 0.4);
+    --glass-shadow: 0 24px 60px -15px rgba(0, 0, 0, 0.6);
+    --glass-blur: blur(16px);
+
+    --text-primary: #f3f1f7;
+    --text-secondary: #aba5be;
+    --text-muted: #6e6782;
+
+    --accent-purple: #8b5cf6;
+    --accent-pink: #ec4899;
+    --accent-gradient: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #a78bfa 0%, #f472b6 100%);
+
+    --input-bg: rgba(255, 255, 255, 0.03);
+    --input-border: rgba(255, 255, 255, 0.07);
+    --input-border-hover: rgba(255, 255, 255, 0.15);
+    --input-focus-bg: rgba(139, 92, 246, 0.05);
+
+    --ticket-bg: rgba(12, 9, 28, 0.75);
+    --ticket-border: rgba(255, 255, 255, 0.05);
+    --ticket-cutout: #070412;
+
+    --success: #10b981;
+    --success-bg: rgba(16, 185, 129, 0.1);
+    --danger: #ef4444;
+    --danger-bg: rgba(239, 68, 68, 0.1);
+    --warning: #f59e0b;
+}
+
+body.light-theme {
+    /* Light Mode Tokens */
+    --bg-app: #f4f5fa;
+    --bg-gradient: radial-gradient(circle at 10% 10%, #e0e4f6 0%, #f0f1f8 100%);
+
+    --glass-bg: rgba(255, 255, 255, 0.65);
+    --glass-bg-hover: rgba(255, 255, 255, 0.75);
+    --glass-border: rgba(99, 102, 241, 0.12);
+    --glass-border-focus: rgba(99, 102, 241, 0.4);
+    --glass-shadow: 0 24px 60px -15px rgba(99, 102, 241, 0.08);
+    --glass-blur: blur(20px);
+
+    --text-primary: #1e1b4b;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+
+    --accent-purple: #6366f1;
+    --accent-pink: #db2777;
+    --accent-gradient: linear-gradient(135deg, #6366f1 0%, #db2777 100%);
+    --accent-gradient-hover: linear-gradient(135deg, #818cf8 0%, #f472b6 100%);
+
+    --input-bg: rgba(255, 255, 255, 0.8);
+    --input-border: rgba(99, 102, 241, 0.15);
+    --input-border-hover: rgba(99, 102, 241, 0.3);
+    --input-focus-bg: rgba(99, 102, 241, 0.03);
+
+    --ticket-bg: rgba(255, 255, 255, 0.85);
+    --ticket-border: rgba(99, 102, 241, 0.1);
+    --ticket-cutout: #f4f5fa;
+
+    --success: #059669;
+    --success-bg: rgba(5, 150, 105, 0.1);
+    --danger: #dc2626;
+    --danger-bg: rgba(220, 38, 38, 0.1);
+}
+
+/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--bg-app);
+    background-image: var(--bg-gradient);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+    padding: 2rem 1rem;
+    transition: background var(--transition-slow), color var(--transition-normal);
+}
+
+/* --------------------------------------------------------------------------
+   2. Background Decorative Blur Circles (Dynamic Floating Blurs)
+   -------------------------------------------------------------------------- */
+.bg-blur-circle {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.45;
+    transition: all var(--transition-slow);
+}
+
+.bg-blur-1 {
+    width: 450px;
+    height: 450px;
+    background: var(--accent-purple);
+    top: -5%;
+    left: -10%;
+    animation: float-slow-1 25s infinite alternate ease-in-out;
+}
+
+.bg-blur-2 {
+    width: 400px;
+    height: 400px;
+    background: var(--accent-pink);
+    bottom: -5%;
+    right: -10%;
+    animation: float-slow-2 30s infinite alternate ease-in-out;
+}
+
+.bg-blur-3 {
+    width: 300px;
+    height: 300px;
+    background: #06b6d4; /* cyan */
+    top: 40%;
+    left: 45%;
+    animation: float-slow-3 20s infinite alternate ease-in-out;
+}
+
+@keyframes float-slow-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(120px, 80px) scale(1.15); }
+}
+
+@keyframes float-slow-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-100px, -90px) scale(1.1); }
+}
+
+@keyframes float-slow-3 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-50px, 120px) scale(1.2); }
+}
+
+/* --------------------------------------------------------------------------
+   3. Main Layout & Page Elements
+   -------------------------------------------------------------------------- */
+.app-container {
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 10;
+}
+
+/* Header styling */
+.app-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    padding: 0 0.5rem;
+}
+
+.header-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+}
+
+.brand-text h1 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+    color: var(--text-primary);
+}
+
+.brand-text h1 span {
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.brand-text p {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--text-secondary);
+}
+
+.control-btn {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    color: var(--text-primary);
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    backdrop-filter: var(--glass-blur);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all var(--transition-fast);
+}
+
+.control-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--glass-border-focus);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+    color: var(--accent-purple);
+}
+
+.control-btn:active {
+    transform: translateY(0);
+}
+
+/* Workspace Grid Layout */
+.booking-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+/* Glass Panel Style */
+.glass-panel {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    box-shadow: var(--glass-shadow);
+    border-radius: 24px;
+    transition: background var(--transition-normal), border var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.booking-wizard-card {
+    padding: 2.5rem;
+}
+
+/* --------------------------------------------------------------------------
+   4. Progress Tracker & Wizard Steps
+   -------------------------------------------------------------------------- */
+.progress-container {
+    margin-bottom: 2.5rem;
+    position: relative;
+}
+
+.progress-bar-background {
+    width: 100%;
+    height: 4px;
+    background: var(--input-border);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.progress-bar-fill {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: 10px;
+    transition: width var(--transition-normal) ease;
+}
+
+.steps-indicators {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -12px; /* Pulls indicators up to overlap bar centermost */
+    position: relative;
+}
+
+.step-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    cursor: pointer;
+}
+
+.step-num {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--bg-app);
+    border: 2px solid var(--text-muted);
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all var(--transition-normal);
+    z-index: 2;
+}
+
+.step-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    transition: color var(--transition-normal);
+    letter-spacing: 0.3px;
+    text-transform: uppercase;
+}
+
+/* Active Step Indicator */
+.step-indicator.active .step-num {
+    border-color: var(--accent-purple);
+    background: var(--accent-purple);
+    color: #fff;
+    box-shadow: 0 0 12px var(--accent-purple);
+}
+
+.step-indicator.active .step-label {
+    color: var(--text-primary);
+}
+
+/* Completed Step Indicator */
+.step-indicator.completed .step-num {
+    border-color: var(--success);
+    background: var(--success);
+    color: #fff;
+}
+
+.step-indicator.completed .step-label {
+    color: var(--success);
+}
+
+/* Form Steps Visibility */
+.form-step {
+    display: none;
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity var(--transition-normal) ease, transform var(--transition-normal) ease;
+}
+
+.form-step.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Titles */
+.step-title {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.35rem;
+}
+
+.step-subtitle {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    margin-bottom: 2.2rem;
+    line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   5. Form Controls, Floating Labels & Custom Selects
+   -------------------------------------------------------------------------- */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.75rem 1.5rem;
+}
+
+.col-span-2 {
+    grid-column: span 2;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Base input styles */
+.form-control {
+    width: 100%;
+    height: 52px;
+    padding: 14px 16px 14px 44px;
+    border-radius: 12px;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all var(--transition-normal);
+}
+
+.form-control:hover {
+    border-color: var(--input-border-hover);
+}
+
+.form-control:focus {
+    border-color: var(--accent-purple);
+    background: var(--input-focus-bg);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+/* Left Icon for Floating Group inputs */
+.input-icon {
+    position: absolute;
+    left: 16px;
+    top: 17px;
+    font-size: 1.1rem;
+    pointer-events: none;
+    transition: all var(--transition-normal);
+    opacity: 0.6;
+}
+
+.form-control:focus ~ .input-icon {
+    opacity: 1;
+}
+
+/* Floating Label Logic */
+.floating-group {
+    position: relative;
+}
+
+.floating-group label {
+    position: absolute;
+    left: 44px;
+    top: 17px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    font-weight: 500;
+    pointer-events: none;
+    transition: all var(--transition-normal);
+    transform-origin: left top;
+}
+
+.form-control:focus ~ label,
+.form-control:not(:placeholder-shown) ~ label {
+    transform: translate(-28px, -26px) scale(0.8);
+    color: var(--accent-purple);
+    font-weight: 600;
+}
+
+/* Address segment styling overrides icons */
+.col-span-2.floating-group label {
+    left: 44px;
+}
+
+/* Date/Time pickers layout styling */
+.date-time-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.45rem;
+}
+
+.input-with-icon {
+    position: relative;
+}
+
+.date-control,
+.time-control {
+    padding-left: 16px;
+    padding-right: 44px;
+}
+
+.custom-date-icon {
+    position: absolute;
+    right: 16px;
+    top: 16px;
+    font-size: 1.1rem;
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* Styling native date pickers dropdown icons */
+::-webkit-calendar-picker-indicator {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: transparent;
+    color: transparent;
+    cursor: pointer;
+}
+
+/* Sync Checkbox */
+.checkbox-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.4rem;
+    padding-left: 2px;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--accent-purple);
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.checkbox-wrapper label {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Meeting Modality (Horizontal selector) */
+.group-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.meeting-type-selector {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+}
+
+.meeting-type-selector input[type="radio"] {
+    display: none;
+}
+
+.meet-label {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.35rem;
+}
+
+.meet-icon {
+    font-size: 1.25rem;
+}
+
+.meeting-type-selector input[type="radio"]:checked + .meet-label {
+    background: var(--input-focus-bg);
+    border-color: var(--accent-purple);
+    color: var(--text-primary);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.12);
+}
+
+.meet-label:hover {
+    border-color: var(--input-border-hover);
+    color: var(--text-primary);
+}
+
+/* --------------------------------------------------------------------------
+   6. Custom Dropdowns (CSS implementation)
+   -------------------------------------------------------------------------- */
+.custom-select-group {
+    position: relative;
+}
+
+.custom-select-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.45rem;
+}
+
+.custom-select-trigger {
+    height: 52px;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    padding: 0 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    user-select: none;
+    transition: all var(--transition-normal);
+}
+
+.custom-select-trigger:hover {
+    border-color: var(--input-border-hover);
+}
+
+.custom-select-trigger:focus {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.arrow-indicator {
+    font-size: 0.65rem;
+    transition: transform var(--transition-normal);
+    opacity: 0.6;
+}
+
+.custom-select-group.open .arrow-indicator {
+    transform: rotate(180deg);
+}
+
+.custom-options-container {
+    position: absolute;
+    top: 78px;
+    left: 0;
+    right: 0;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 14px;
+    box-shadow: 0 16px 36px rgba(0,0,0,0.25);
+    z-index: 100;
+    max-height: 240px;
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast), visibility var(--transition-fast);
+}
+
+.custom-select-group.open .custom-options-container {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.custom-option {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.custom-option:hover {
+    background: rgba(139, 92, 246, 0.1);
+    color: var(--text-primary);
+}
+
+.custom-option.selected {
+    background: var(--accent-gradient);
+    color: #fff !important;
+}
+
+/* --------------------------------------------------------------------------
+   7. Textarea & Upload Drag Zone
+   -------------------------------------------------------------------------- */
+.textarea-group textarea {
+    resize: none;
+    height: auto;
+    padding-top: 16px;
+    padding-left: 16px;
+}
+
+.textarea-group label {
+    left: 16px;
+}
+
+.textarea-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.35rem;
+}
+
+.char-counter {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* Drag-drop Upload Area */
+.upload-title-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.45rem;
+}
+
+.drag-drop-zone {
+    background: rgba(255,255,255, 0.01);
+    border: 2px dashed var(--input-border);
+    border-radius: 16px;
+    padding: 2.2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-normal);
+}
+
+.drag-drop-zone:hover,
+.drag-drop-zone.dragover {
+    border-color: var(--accent-purple);
+    background: var(--input-focus-bg);
+}
+
+.drag-drop-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.upload-large-icon {
+    font-size: 2.2rem;
+}
+
+.upload-primary-text {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.upload-secondary-text {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+
+.upload-trigger-btn {
+    margin-top: 0.4rem;
+}
+
+.hidden-file-input {
+    display: none;
+}
+
+.file-preview-list {
+    margin-top: 1rem;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.file-item {
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    padding: 8px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    animation: slide-in 0.25s forwards;
+}
+
+.file-details {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-primary);
+}
+
+.file-remove-btn {
+    background: none;
+    border: none;
+    color: var(--danger);
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0 4px;
+}
+
+@keyframes slide-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   8. Validation Error States
+   -------------------------------------------------------------------------- */
+.input-group.invalid .form-control {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+}
+
+.input-group.invalid .custom-select-trigger {
+    border-color: var(--danger);
+}
+
+.error-msg {
+    color: var(--danger);
+    font-size: 0.72rem;
+    font-weight: 600;
+    margin-top: 0.3rem;
+    display: none;
+}
+
+.input-group.invalid .error-msg {
+    display: block;
+}
+
+/* --------------------------------------------------------------------------
+   9. Buttons & Action Navigation
+   -------------------------------------------------------------------------- */
+.form-navigation-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--input-border);
+}
+
+.navigation-right {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* Common Actions Buttons */
+button {
+    font-family: var(--font-body);
+    font-weight: 600;
+    border-radius: 12px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all var(--transition-fast);
+}
+
+.action-btn-primary {
+    height: 48px;
+    padding: 0 24px;
+    background: var(--accent-gradient);
+    color: #fff;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 20px -6px rgba(139, 92, 246, 0.4);
+}
+
+.action-btn-primary:hover {
+    background: var(--accent-gradient-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -6px rgba(139, 92, 246, 0.5);
+}
+
+.action-btn-primary:active {
+    transform: translateY(0);
+}
+
+.action-btn-secondary {
+    height: 48px;
+    padding: 0 20px;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.action-btn-secondary:hover {
+    background: var(--glass-bg-hover);
+    border-color: var(--input-border-hover);
+    transform: translateY(-1px);
+}
+
+.action-btn-secondary:active {
+    transform: translateY(0);
+}
+
+.action-btn-danger {
+    height: 48px;
+    padding: 0 18px;
+    background: var(--danger-bg);
+    color: var(--danger);
+    font-size: 0.9rem;
+}
+
+.action-btn-danger:hover {
+    background: var(--danger);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.action-btn-success {
+    height: 48px;
+    padding: 0 24px;
+    background: var(--success);
+    color: #fff;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 20px -6px rgba(16, 185, 129, 0.4);
+}
+
+.action-btn-success:hover {
+    background: #0d9488;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px -6px rgba(16, 185, 129, 0.5);
+}
+
+/* Spinner Loading */
+.btn-loading-spinner {
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: #fff;
+    animation: rotate-spin 0.8s linear infinite;
+}
+
+@keyframes rotate-spin {
+    to { transform: rotate(360deg); }
+}
+
+/* --------------------------------------------------------------------------
+   10. Booking Summary Ticket Sidebar (Premium Receipt Visual)
+   -------------------------------------------------------------------------- */
+.booking-summary-sidebar {
+    height: 100%;
+}
+
+.summary-sticky-wrapper {
+    position: sticky;
+    top: 2rem;
+}
+
+.summary-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding: 0 0.5rem;
+}
+
+.summary-card-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.2px;
+}
+
+.badge-live {
+    font-size: 0.65rem;
+    font-weight: 800;
+    background: var(--danger-bg);
+    color: var(--danger);
+    border: 1px solid var(--danger);
+    padding: 3px 8px;
+    border-radius: 50px;
+    letter-spacing: 0.8px;
+}
+
+.animate-pulse {
+    animation: pulser 2s infinite;
+}
+
+@keyframes pulser {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Ticket Container */
+.summary-ticket {
+    background: var(--ticket-bg);
+    border: 1px solid var(--ticket-border);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 20px;
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: background var(--transition-normal), border var(--transition-normal);
+}
+
+/* Top Bar */
+.ticket-header {
+    padding: 1.5rem 1.5rem 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.ticket-brand-name {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.ticket-invoice-num {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    margin-top: 0.2rem;
+}
+
+.ticket-barcode {
+    width: 60px;
+    height: 32px;
+    background: var(--text-primary);
+    opacity: 0.25;
+    mask-image: repeating-linear-gradient(90deg, #000 0px, #000 1px, transparent 1px, transparent 4px);
+    -webkit-mask-image: repeating-linear-gradient(90deg, #000 0px, #000 1px, transparent 1px, transparent 4px);
+}
+
+/* Content Details */
+.ticket-body {
+    padding: 0 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.ticket-segment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.segment-label {
+    font-size: 0.62rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+    text-transform: uppercase;
+}
+
+.segment-value {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.segment-sub {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.spec-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.9rem 0.75rem;
+    margin-top: 0.25rem;
+}
+
+.spec-cell {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.cell-label {
+    font-size: 0.62rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.cell-val {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Separation punched circles line */
+.ticket-divider {
+    position: relative;
+    height: 24px;
+    margin: 0.5rem 0;
+    display: flex;
+    align-items: center;
+}
+
+.cutout-left, .cutout-right {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: var(--ticket-cutout);
+    border-radius: 50%;
+    border: 1px solid var(--ticket-border);
+    top: 2px;
+    z-index: 5;
+    transition: background var(--transition-normal), border var(--transition-normal);
+}
+
+.cutout-left {
+    left: -10px;
+}
+
+.cutout-right {
+    right: -10px;
+}
+
+.dashed-line {
+    width: 100%;
+    height: 1px;
+    border-top: 1.5px dashed var(--input-border);
+}
+
+/* Footer receipt elements */
+.ticket-footer {
+    padding: 0.5rem 1.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.completion-rate-box {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    flex-grow: 1;
+    margin-right: 1.5rem;
+}
+
+.rate-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: var(--text-muted);
+}
+
+.completion-bar {
+    height: 6px;
+    background: var(--input-border);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.completion-bar-fill {
+    height: 100%;
+    background: var(--accent-gradient);
+    border-radius: 5px;
+    transition: width var(--transition-normal) cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.ticket-rate-num {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 800;
+    background: var(--accent-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   11. Modal Popup Container
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(4, 2, 12, 0.7);
+    backdrop-filter: blur(8px);
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+.modal-overlay.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 2.2rem;
+    position: relative;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: scale-up 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes scale-up {
+    from { transform: scale(0.9) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.modal-close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color var(--transition-fast);
+}
+
+.modal-close-btn:hover {
+    color: var(--text-primary);
+}
+
+.modal-header-decor {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: var(--input-focus-bg);
+    border: 1px solid var(--glass-border-focus);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.25rem;
+}
+
+.modal-decor-icon {
+    font-size: 1.4rem;
+}
+
+.modal-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+}
+
+.modal-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+}
+
+.modal-summary-scroller {
+    overflow-y: auto;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-right: 0.5rem;
+    margin-bottom: 1.75rem;
+    border-bottom: 1px solid var(--input-border);
+    padding-bottom: 1rem;
+}
+
+/* Custom Scrollbar for Scroller */
+.modal-summary-scroller::-webkit-scrollbar,
+.custom-options-container::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-summary-scroller::-webkit-scrollbar-thumb,
+.custom-options-container::-webkit-scrollbar-thumb {
+    background: var(--input-border-hover);
+    border-radius: 10px;
+}
+
+.modal-summary-group {
+    background: rgba(255,255,255, 0.015);
+    border: 1px solid var(--input-border);
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.modal-summary-group h4 {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--accent-purple);
+    margin-bottom: 0.65rem;
+}
+
+.modal-summary-group p {
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-primary);
+}
+
+.modal-summary-group p strong {
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-right: 0.25rem;
+}
+
+.modal-details-text {
+    white-space: pre-wrap;
+    background: var(--input-bg);
+    border: 1px solid var(--input-border);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.82rem !important;
+}
+
+.modal-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+/* --------------------------------------------------------------------------
+   12. Toasts Notifications visual design
+   -------------------------------------------------------------------------- */
+.toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    z-index: 2000;
+    width: 320px;
+    max-width: calc(100vw - 48px);
+}
+
+.toast {
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: var(--glass-blur);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    animation: toast-in 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+@keyframes toast-in {
+    from { transform: translateX(50px); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+.toast.removing {
+    opacity: 0;
+    transform: translateY(-15px);
+}
+
+.toast-icon {
+    font-size: 1.25rem;
+    flex-shrink: 0;
+}
+
+.toast-content {
+    flex-grow: 1;
+}
+
+.toast-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.toast-desc {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    margin-top: 0.1rem;
+    line-height: 1.3;
+}
+
+.toast.toast-success {
+    border-left: 4px solid var(--success);
+}
+.toast.toast-danger {
+    border-left: 4px solid var(--danger);
+}
+.toast.toast-warning {
+    border-left: 4px solid var(--warning);
+}
+.toast.toast-info {
+    border-left: 4px solid var(--accent-purple);
+}
+
+/* --------------------------------------------------------------------------
+   13. Responsive Breakpoints (Tablet & Mobile)
+   -------------------------------------------------------------------------- */
+
+/* Responsive Table layout breakpoint */
+@media (max-width: 992px) {
+    body {
+        padding: 1.5rem 1rem;
+    }
+
+    .booking-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .booking-summary-sidebar {
+        order: -1; /* Place summary ticket on top for mobile/tablet */
+    }
+
+    .summary-sticky-wrapper {
+        position: static;
+    }
+
+    .summary-ticket {
+        max-width: 100%;
+    }
+}
+
+/* Small Smartphone breakpoint */
+@media (max-width: 576px) {
+    .booking-wizard-card {
+        padding: 1.5rem 1.2rem;
+        border-radius: 20px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .col-span-2 {
+        grid-column: span 1;
+    }
+
+    .steps-indicators {
+        justify-content: space-around;
+    }
+
+    /* Keep step descriptions hidden or compact on tiny screens */
+    .step-indicator {
+        gap: 0.25rem;
+    }
+
+    .step-label {
+        font-size: 0.6rem;
+        text-align: center;
+        max-width: 70px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .meeting-type-selector {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .form-navigation-actions {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+
+    .navigation-right {
+        justify-content: space-between;
+    }
+
+    .navigation-right button {
+        flex-grow: 1;
+    }
+
+    #prev-btn {
+        width: 100%;
+    }
+
+    .modal-container {
+        padding: 1.5rem;
+    }
+
+    .modal-actions {
+        flex-direction: column-reverse;
+        gap: 0.75rem;
+    }
+
+    .modal-actions button {
+        width: 100%;
+    }
+}

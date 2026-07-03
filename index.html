@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SyncBook | Premium WhatsApp Booking Engine</title>
+    <!-- Google Fonts for Clean Typography -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Background Animated Gradients -->
+    <div class="bg-blur-circle bg-blur-1"></div>
+    <div class="bg-blur-circle bg-blur-2"></div>
+    <div class="bg-blur-circle bg-blur-3"></div>
+
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-brand">
+                <!-- Premium Logo SVG -->
+                <svg class="brand-logo" width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect width="40" height="40" rx="10" fill="url(#brand-grad)" />
+                    <path d="M12 20C12 15.5817 15.5817 12 20 12C24.4183 12 28 15.5817 28 20C28 24.4183 24.4183 28 20 28" stroke="white" stroke-width="3" stroke-linecap="round" />
+                    <path d="M16 20C16 17.7909 17.7909 16 20 16C22.2091 16 24 17.7909 24 20" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+                    <circle cx="20" cy="20" r="2" fill="white" />
+                    <defs>
+                        <linearGradient id="brand-grad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                            <stop stop-color="#8B5CF6" />
+                            <stop offset="1" stop-color="#EC4899" />
+                        </linearGradient>
+                    </defs>
+                </svg>
+                <div class="brand-text">
+                    <h1>Sync<span>Book</span></h1>
+                    <p>Corporate Booking Engine</p>
+                </div>
+            </div>
+            
+            <div class="header-controls">
+                <!-- Theme Toggle Button -->
+                <button id="theme-toggle" class="control-btn" aria-label="Toggle Dark/Light Mode" title="Toggle Mode">
+                    <!-- Light Sun Icon -->
+                    <svg class="sun-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                    <!-- Dark Moon Icon -->
+                    <svg class="moon-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display: none;">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="booking-grid">
+            <!-- Left Side: Wizard & Form -->
+            <section class="booking-wizard-card glass-panel">
+                <!-- Step Navigation / Progress Bar -->
+                <div class="progress-container">
+                    <div class="progress-bar-background">
+                        <div id="form-progress-bar" class="progress-bar-fill" style="width: 33.33%;"></div>
+                    </div>
+                    <div class="steps-indicators">
+                        <div class="step-indicator active" data-step="1">
+                            <span class="step-num">1</span>
+                            <span class="step-label">Contact Details</span>
+                        </div>
+                        <div class="step-indicator" data-step="2">
+                            <span class="step-num">2</span>
+                            <span class="step-label">Project Specs</span>
+                        </div>
+                        <div class="step-indicator" data-step="3">
+                            <span class="step-num">3</span>
+                            <span class="step-label">Scope & Files</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wizard Form -->
+                <form id="booking-form" novalidate autocomplete="on">
+                    <!-- STEP 1: Customer Information -->
+                    <div class="form-step active" data-step="1" id="step-1">
+                        <h2 class="step-title">Customer Information</h2>
+                        <p class="step-subtitle">Introduce yourself and your organization so we can tailor our response.</p>
+                        
+                        <div class="form-grid">
+                            <!-- Full Name -->
+                            <div class="input-group floating-group">
+                                <input type="text" id="full-name" name="fullName" required placeholder=" " class="form-control" autocomplete="name">
+                                <label for="full-name">Full Name *</label>
+                                <span class="input-icon">👤</span>
+                                <span class="error-msg" id="err-full-name">Full name is required</span>
+                            </div>
+
+                            <!-- Company Name -->
+                            <div class="input-group floating-group">
+                                <input type="text" id="company-name" name="companyName" placeholder=" " class="form-control" autocomplete="organization">
+                                <label for="company-name">Company Name (Optional)</label>
+                                <span class="input-icon">🏢</span>
+                            </div>
+
+                            <!-- Email Address -->
+                            <div class="input-group floating-group">
+                                <input type="email" id="email" name="email" required placeholder=" " class="form-control" autocomplete="email">
+                                <label for="email">Email Address *</label>
+                                <span class="input-icon">📧</span>
+                                <span class="error-msg" id="err-email">Provide a valid email address</span>
+                            </div>
+
+                            <!-- Mobile Number -->
+                            <div class="input-group floating-group">
+                                <input type="tel" id="mobile-number" name="mobileNumber" required placeholder=" " class="form-control" autocomplete="tel">
+                                <label for="mobile-number">Mobile Number *</label>
+                                <span class="input-icon">📱</span>
+                                <span class="error-msg" id="err-mobile-number">Provide a valid mobile number (e.g. 10 digits)</span>
+                            </div>
+
+                            <!-- WhatsApp Number -->
+                            <div class="input-group floating-group">
+                                <input type="tel" id="whatsapp-number" name="whatsappNumber" placeholder=" " class="form-control">
+                                <label for="whatsapp-number">WhatsApp Number</label>
+                                <span class="input-icon">💬</span>
+                                <div class="checkbox-wrapper">
+                                    <input type="checkbox" id="sync-whatsapp" tabindex="0">
+                                    <label for="sync-whatsapp">Same as mobile number</label>
+                                </div>
+                            </div>
+
+                            <!-- Address Line -->
+                            <div class="input-group floating-group col-span-2">
+                                <input type="text" id="address" name="address" placeholder=" " class="form-control" autocomplete="street-address">
+                                <label for="address">Address</label>
+                                <span class="input-icon">📍</span>
+                            </div>
+
+                            <!-- City -->
+                            <div class="input-group floating-group">
+                                <input type="text" id="city" name="city" placeholder=" " class="form-control" autocomplete="address-level2">
+                                <label for="city">City</label>
+                                <span class="input-icon">🏙️</span>
+                            </div>
+
+                            <!-- State -->
+                            <div class="input-group floating-group">
+                                <input type="text" id="state" name="state" placeholder=" " class="form-control" autocomplete="address-level1">
+                                <label for="state">State</label>
+                                <span class="input-icon">🗺️</span>
+                            </div>
+
+                            <!-- Country -->
+                            <div class="input-group floating-group">
+                                <input type="text" id="country" name="country" placeholder=" " class="form-control" autocomplete="country-name">
+                                <label for="country">Country</label>
+                                <span class="input-icon">🌍</span>
+                            </div>
+
+                            <!-- PIN Code -->
+                            <div class="input-group floating-group">
+                                <input type="text" id="pin-code" name="pinCode" placeholder=" " class="form-control" autocomplete="postal-code">
+                                <label for="pin-code">PIN Code</label>
+                                <span class="input-icon">🔢</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: Booking Specifications -->
+                    <div class="form-step" data-step="2" id="step-2">
+                        <h2 class="step-title">Booking Details</h2>
+                        <p class="step-subtitle">Tell us about the services you need, timing, and budget boundaries.</p>
+
+                        <div class="form-grid">
+                            <!-- Service Required (Custom Dropdown) -->
+                            <div class="input-group custom-select-group" id="service-select-group">
+                                <label class="custom-select-label">Service Required *</label>
+                                <div class="custom-select-trigger" tabindex="0" aria-haspopup="listbox" aria-expanded="false" id="service-trigger">
+                                    <span class="selected-val">Select Service...</span>
+                                    <span class="arrow-indicator">▼</span>
+                                </div>
+                                <div class="custom-options-container" role="listbox">
+                                    <div class="custom-option" role="option" data-value="Website Development">Website Development</div>
+                                    <div class="custom-option" role="option" data-value="Website Redesign">Website Redesign</div>
+                                    <div class="custom-option" role="option" data-value="UI/UX Design">UI/UX Design</div>
+                                    <div class="custom-option" role="option" data-value="SEO">SEO Optimization</div>
+                                    <div class="custom-option" role="option" data-value="Digital Marketing">Digital Marketing</div>
+                                    <div class="custom-option" role="option" data-value="Graphic Design">Graphic Design</div>
+                                    <div class="custom-option" role="option" data-value="Consultation">Consultation</div>
+                                    <div class="custom-option" role="option" data-value="Other">Other</div>
+                                </div>
+                                <input type="hidden" id="service-required" name="serviceRequired" required value="">
+                                <span class="error-msg" id="err-service">Service selection is required</span>
+                            </div>
+
+                            <!-- Package (Custom Dropdown) -->
+                            <div class="input-group custom-select-group" id="package-select-group">
+                                <label class="custom-select-label">Package Option *</label>
+                                <div class="custom-select-trigger" tabindex="0" aria-haspopup="listbox" aria-expanded="false" id="package-trigger">
+                                    <span class="selected-val">Select Package...</span>
+                                    <span class="arrow-indicator">▼</span>
+                                </div>
+                                <div class="custom-options-container" role="listbox">
+                                    <div class="custom-option" role="option" data-value="Basic">Basic Package</div>
+                                    <div class="custom-option" role="option" data-value="Standard">Standard Package</div>
+                                    <div class="custom-option" role="option" data-value="Premium">Premium Package</div>
+                                    <div class="custom-option" role="option" data-value="Custom">Custom Scope</div>
+                                </div>
+                                <input type="hidden" id="package" name="package" required value="">
+                                <span class="error-msg" id="err-package">Package selection is required</span>
+                            </div>
+
+                            <!-- Preferred Meeting Type (Horizontal custom selector) -->
+                            <div class="input-group col-span-2 select-btn-group">
+                                <label class="group-label">Preferred Meeting Type *</label>
+                                <div class="meeting-type-selector">
+                                    <input type="radio" id="meet-online" name="meetingType" value="Online" checked>
+                                    <label for="meet-online" class="meet-label">
+                                        <span class="meet-icon">💻</span> Online Meeting
+                                    </label>
+
+                                    <input type="radio" id="meet-offline" name="meetingType" value="Offline">
+                                    <label for="meet-offline" class="meet-label">
+                                        <span class="meet-icon">🤝</span> In-Person
+                                    </label>
+
+                                    <input type="radio" id="meet-phone" name="meetingType" value="Phone Call">
+                                    <label for="meet-phone" class="meet-label">
+                                        <span class="meet-icon">📞</span> Phone Call
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Preferred Date -->
+                            <div class="input-group date-picker-group">
+                                <label for="preferred-date" class="date-time-label">Preferred Date *</label>
+                                <div class="input-with-icon">
+                                    <input type="date" id="preferred-date" name="preferredDate" required class="form-control date-control">
+                                    <span class="custom-date-icon">📅</span>
+                                </div>
+                                <span class="error-msg" id="err-pref-date">Preferred date is required</span>
+                            </div>
+
+                            <!-- Preferred Time -->
+                            <div class="input-group date-picker-group">
+                                <label for="preferred-time" class="date-time-label">Preferred Time *</label>
+                                <div class="input-with-icon">
+                                    <input type="time" id="preferred-time" name="preferredTime" required class="form-control time-control">
+                                    <span class="custom-date-icon">🕒</span>
+                                </div>
+                                <span class="error-msg" id="err-pref-time">Preferred time is required</span>
+                            </div>
+
+                            <!-- Budget Selection (Custom Dropdown) -->
+                            <div class="input-group custom-select-group" id="budget-select-group">
+                                <label class="custom-select-label">Project Budget *</label>
+                                <div class="custom-select-trigger" tabindex="0" aria-haspopup="listbox" aria-expanded="false" id="budget-trigger">
+                                    <span class="selected-val">Select Budget...</span>
+                                    <span class="arrow-indicator">▼</span>
+                                </div>
+                                <div class="custom-options-container" role="listbox">
+                                    <div class="custom-option" role="option" data-value="Below ₹10,000">Below ₹10,000</div>
+                                    <div class="custom-option" role="option" data-value="₹10,000–25,000">₹10,000 – ₹25,000</div>
+                                    <div class="custom-option" role="option" data-value="₹25,000–50,000">₹25,000 – ₹50,000</div>
+                                    <div class="custom-option" role="option" data-value="₹50,000+">₹50,000+</div>
+                                </div>
+                                <input type="hidden" id="budget" name="budget" required value="">
+                                <span class="error-msg" id="err-budget">Budget selection is required</span>
+                            </div>
+
+                            <!-- Project Deadline -->
+                            <div class="input-group date-picker-group">
+                                <label for="project-deadline" class="date-time-label">Estimated Deadline</label>
+                                <div class="input-with-icon">
+                                    <input type="date" id="project-deadline" name="projectDeadline" class="form-control date-control">
+                                    <span class="custom-date-icon">⏳</span>
+                                </div>
+                            </div>
+
+                            <!-- How did you hear about us? (Custom Dropdown) -->
+                            <div class="input-group custom-select-group col-span-2" id="referral-select-group">
+                                <label class="custom-select-label">How did you hear about us?</label>
+                                <div class="custom-select-trigger" tabindex="0" aria-haspopup="listbox" aria-expanded="false" id="referral-trigger">
+                                    <span class="selected-val">Select Source...</span>
+                                    <span class="arrow-indicator">▼</span>
+                                </div>
+                                <div class="custom-options-container" role="listbox">
+                                    <div class="custom-option" role="option" data-value="Google">Google Search</div>
+                                    <div class="custom-option" role="option" data-value="Instagram">Instagram</div>
+                                    <div class="custom-option" role="option" data-value="LinkedIn">LinkedIn</div>
+                                    <div class="custom-option" role="option" data-value="Facebook">Facebook</div>
+                                    <div class="custom-option" role="option" data-value="Referral">Word of Mouth / Referral</div>
+                                    <div class="custom-option" role="option" data-value="Other">Other Source</div>
+                                </div>
+                                <input type="hidden" id="referral" name="referral" value="">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: Project Scope & File Uploads -->
+                    <div class="form-step" data-step="3" id="step-3">
+                        <h2 class="step-title">Project Scope & Details</h2>
+                        <p class="step-subtitle">Elaborate on your expectations, deliverables, and attach any briefs.</p>
+
+                        <div class="form-grid">
+                            <!-- Project Description -->
+                            <div class="input-group textarea-group col-span-2">
+                                <textarea id="project-desc" name="projectDescription" required placeholder=" " rows="6" maxlength="1000" class="form-control"></textarea>
+                                <label for="project-desc">Project Description & Requirements *</label>
+                                <div class="textarea-footer">
+                                    <span class="error-msg" id="err-project-desc" style="position:static;">Project description is required (min 20 characters)</span>
+                                    <span class="char-counter" id="char-counter"><span id="char-count">0</span> / 1000</span>
+                                </div>
+                            </div>
+
+                            <!-- Upload Requirements UI (Optional UI only) -->
+                            <div class="input-group upload-group col-span-2">
+                                <label class="upload-title-label">Requirement Attachments (Mock UI)</label>
+                                <div class="drag-drop-zone" id="drop-zone">
+                                    <input type="file" id="file-uploader" class="hidden-file-input" multiple accept=".pdf,.doc,.docx,.png,.jpg,.zip">
+                                    <div class="drag-drop-content">
+                                        <span class="upload-large-icon">📤</span>
+                                        <p class="upload-primary-text">Drag and drop your project briefs or reference files here</p>
+                                        <p class="upload-secondary-text">Supports PDF, DOCX, PNG, JPG, ZIP (Max 10MB total)</p>
+                                        <button type="button" class="action-btn-secondary upload-trigger-btn" id="upload-btn">Browse Files</button>
+                                    </div>
+                                </div>
+                                <!-- File Preview List -->
+                                <ul class="file-preview-list" id="file-preview-list"></ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Navigation Action Controls -->
+                    <div class="form-navigation-actions">
+                        <button type="button" id="prev-btn" class="action-btn-secondary" style="visibility: hidden;">
+                            <span class="btn-icon">←</span> Back
+                        </button>
+                        
+                        <div class="navigation-right">
+                            <button type="button" id="reset-btn" class="action-btn-danger" title="Clear entire form data">
+                                Reset
+                            </button>
+                            <button type="button" id="next-btn" class="action-btn-primary">
+                                Next Step <span class="btn-icon">→</span>
+                            </button>
+                            <button type="submit" id="submit-btn" class="action-btn-success" style="display: none;">
+                                <span class="btn-text">Book Now</span>
+                                <span class="btn-loading-spinner" style="display: none;"></span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Right Side: Booking Ticket Summary -->
+            <aside class="booking-summary-sidebar">
+                <div class="summary-sticky-wrapper">
+                    <!-- Ticket Title Header -->
+                    <div class="summary-card-header">
+                        <h2>Live Preview</h2>
+                        <span class="badge-live animate-pulse">LIVE TICKET</span>
+                    </div>
+
+                    <!-- The Receipt Card itself -->
+                    <div class="summary-ticket">
+                        <!-- Top Half: Company Header -->
+                        <div class="ticket-header">
+                            <div class="ticket-brand-section">
+                                <span class="ticket-brand-name">SyncBook Engine</span>
+                                <span class="ticket-invoice-num" id="ticket-id">#SB-2026-0702</span>
+                            </div>
+                            <div class="ticket-barcode"></div>
+                        </div>
+
+                        <!-- Ticket Body Details -->
+                        <div class="ticket-body">
+                            <!-- Customer Info Segment -->
+                            <div class="ticket-segment">
+                                <h3 class="segment-label">CLIENT PROFILE</h3>
+                                <div class="segment-value" id="summary-client-name">Anonymous Client</div>
+                                <div class="segment-sub" id="summary-client-org">Independent Partner</div>
+                                <div class="segment-sub" id="summary-client-contact">-</div>
+                            </div>
+
+                            <!-- Project Specification Segment -->
+                            <div class="ticket-segment">
+                                <h3 class="segment-label">SPECIFICATIONS</h3>
+                                <div class="spec-grid">
+                                    <div class="spec-cell">
+                                        <span class="cell-label">Required Service</span>
+                                        <span class="cell-val" id="summary-service">Not Selected</span>
+                                    </div>
+                                    <div class="spec-cell">
+                                        <span class="cell-label">Selected Tier</span>
+                                        <span class="cell-val" id="summary-package">Not Selected</span>
+                                    </div>
+                                    <div class="spec-cell">
+                                        <span class="cell-label">Target Budget</span>
+                                        <span class="cell-val" id="summary-budget">Not Specified</span>
+                                    </div>
+                                    <div class="spec-cell">
+                                        <span class="cell-label">Meeting Modality</span>
+                                        <span class="cell-val" id="summary-meeting">Online Meeting</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Dates & Schedules Segment -->
+                            <div class="ticket-segment">
+                                <h3 class="segment-label">SCHEDULES & DEADLINES</h3>
+                                <div class="spec-grid">
+                                    <div class="spec-cell">
+                                        <span class="cell-label">Proposed Session</span>
+                                        <span class="cell-val" id="summary-session">-</span>
+                                    </div>
+                                    <div class="spec-cell">
+                                        <span class="cell-label">Estimated End Date</span>
+                                        <span class="cell-val" id="summary-deadline">-</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Jagged Ticket Cut Separation Line -->
+                        <div class="ticket-divider">
+                            <span class="cutout-left"></span>
+                            <span class="dashed-line"></span>
+                            <span class="cutout-right"></span>
+                        </div>
+
+                        <!-- Ticket Footer: Call to Action Summary status -->
+                        <div class="ticket-footer">
+                            <div class="completion-rate-box">
+                                <span class="rate-label">Form Completion</span>
+                                <div class="completion-bar">
+                                    <div class="completion-bar-fill" id="summary-completion-bar" style="width: 0%;"></div>
+                                </div>
+                            </div>
+                            <div class="ticket-rate-num" id="summary-completion-text">0%</div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Booking Confirmation Modal (Popup) -->
+    <div class="modal-overlay" id="confirm-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div class="modal-container glass-panel">
+            <button class="modal-close-btn" id="modal-close" aria-label="Close modal">&times;</button>
+            
+            <div class="modal-header-decor">
+                <span class="modal-decor-icon">✨</span>
+            </div>
+
+            <h2 id="modal-title" class="modal-title">Verify Booking Information</h2>
+            <p class="modal-desc">Your customized request is prepared. Confirming will format and direct your data securely to WhatsApp for rapid consultation.</p>
+
+            <div class="modal-summary-scroller">
+                <div class="modal-summary-group">
+                    <h4>👤 Contact Information</h4>
+                    <p><strong>Name:</strong> <span id="modal-name">John Doe</span></p>
+                    <p id="modal-org-row"><strong>Organization:</strong> <span id="modal-org">ABC Pvt Ltd</span></p>
+                    <p><strong>Email:</strong> <span id="modal-email">john@gmail.com</span></p>
+                    <p><strong>Contact:</strong> <span id="modal-phone">9876543210</span></p>
+                    <p id="modal-whatsapp-row"><strong>WhatsApp Contact:</strong> <span id="modal-whatsapp">9876543210</span></p>
+                    <p id="modal-location-row"><strong>Location:</strong> <span id="modal-location">-</span></p>
+                </div>
+
+                <div class="modal-summary-group">
+                    <h4>📦 Booking Details</h4>
+                    <p><strong>Required Service:</strong> <span id="modal-service">Website Redesign</span></p>
+                    <p><strong>Package Option:</strong> <span id="modal-package">Premium</span></p>
+                    <p><strong>Meeting Modality:</strong> <span id="modal-meeting">Online Meeting</span></p>
+                    <p><strong>Proposed Timing:</strong> <span id="modal-schedule">12 July 2026 at 11:30 AM</span></p>
+                    <p><strong>Target Budget:</strong> <span id="modal-budget">₹25,000–50,000</span></p>
+                    <p id="modal-deadline-row"><strong>Estimated Deadline:</strong> <span id="modal-deadline">30 July 2026</span></p>
+                    <p id="modal-referral-row"><strong>Discovery Source:</strong> <span id="modal-referral">-</span></p>
+                </div>
+
+                <div class="modal-summary-group">
+                    <h4>📝 Detailed Requirements</h4>
+                    <p class="modal-details-text" id="modal-description">Need complete redesign with modern UI.</p>
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button type="button" class="action-btn-secondary" id="modal-cancel-btn">Make Adjustments</button>
+                <button type="button" class="action-btn-success" id="modal-confirm-btn">
+                    Confirm & Send to WhatsApp
+                    <span class="btn-icon">🚀</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div class="toast-container" id="toast-container"></div>
+
+    <!-- Script File -->
+    <script src="script.js"></script>
+</body>
+</html>
